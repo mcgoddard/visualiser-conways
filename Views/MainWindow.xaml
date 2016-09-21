@@ -4,20 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:visualiser_conways.Views"
+        xmlns:vm="clr-namespace:visualiser_conways.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Label Content="{Binding}" Height="10" Width="10" Margin="1"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <ItemsControl ItemTemplate="{DynamicResource DataTemplate_Level1}" ItemsSource="{Binding States}"/>
+        </Grid>
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
             <Button Content="Play" Command="{Binding PlayCommand}" Margin="5"/>
             <Button Content="Stop" Command="{Binding StopCommand}" Margin="5"/>
             <Label Content="Delay:" Margin="5"/>
-            <TextBox Text="{Binding Mode=TwoWay, Path=DelayTime}" Width="50" Margin="5"/>
-            <Button Content="Select folder" Command="{Binding SelectFolder}" Margin="5"/>
-            <Label Content="{Binding InputFolder}" Margin="5"/>
+            <TextBox Text="{Binding Mode=TwoWay, Path=DelayTime}" Width="50" Margin="5" VerticalAlignment="Center" IsEnabled="{Binding CanChangeDelay}"/>
+            <Button Content="Select folder" Command="{Binding SelectFolderCommand}" Margin="5"/>
+            <Label Content="{Binding OutputDir}" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Window>
