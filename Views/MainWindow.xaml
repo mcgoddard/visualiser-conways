@@ -36,10 +36,15 @@
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
             <Button Content="Play" Command="{Binding PlayCommand}" Margin="5"/>
             <Button Content="Stop" Command="{Binding StopCommand}" Margin="5"/>
+            <Label Content="Iteration:" Margin="5" Width="60"/>
+            <TextBox Text="{Binding Mode=TwoWay, Path=IterationNumber}" Margin="5" VerticalAlignment="Center" 
+                     IsEnabled="{Binding CanChangeIteration}" Width="40"/>
             <Label Content="Delay:" Margin="5"/>
-            <TextBox Text="{Binding Mode=TwoWay, Path=DelayTime}" Width="50" Margin="5" VerticalAlignment="Center" IsEnabled="{Binding CanChangeDelay}"/>
+            <TextBox Text="{Binding Mode=TwoWay, Path=DelayTime}" Width="40" Margin="5" VerticalAlignment="Center" IsEnabled="{Binding CanChangeDelay}"/>
             <Button Content="Select folder" Command="{Binding SelectFolderCommand}" Margin="5"/>
-            <Label Content="{Binding OutputDir}" Margin="5" VerticalAlignment="Center"/>
+            <Label Margin="5" VerticalAlignment="Center" Width="125">
+                <TextBlock Text="{Binding OutputDir}" TextTrimming="CharacterEllipsis"/>
+            </Label>
         </StackPanel>
     </Grid>
 </Window>

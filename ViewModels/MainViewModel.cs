@@ -73,6 +73,23 @@ namespace visualiser_conways.ViewModels
             }
         }
 
+        public string IterationNumber
+        {
+            get
+            {
+                return iterNum.ToString();
+            }
+            set
+            {
+                uint iterNum;
+                if (uint.TryParse(value, out iterNum) && iterNum != this.iterNum)
+                {
+                    this.iterNum = iterNum;
+                    OnPropertyChanged("IterationNumber");
+                }
+            }
+        }
+
         public List<List<bool>> States
         {
             get
@@ -85,6 +102,14 @@ namespace visualiser_conways.ViewModels
                 return bl;
             }
         }
+
+        public bool CanChangeIteration
+        {
+            get
+            {
+                return !playing;
+            }
+        }
         #endregion
 
         #region Private members
@@ -92,7 +117,7 @@ namespace visualiser_conways.ViewModels
         private uint delayTime = 500;
         private bool playing = false;
         private Timer playTimer;
-        private int iterNum = 0;
+        private uint iterNum = 0;
         private bool[][] states;
         private bool rendering = false;
         #endregion
@@ -114,7 +139,6 @@ namespace visualiser_conways.ViewModels
 
         private void Play(object parameter)
         {
-            iterNum = 0;
             playing = true;
             playTimer = new Timer(delayTime);
             playTimer.Elapsed += PlayTimer_Elapsed;
@@ -144,6 +168,7 @@ namespace visualiser_conways.ViewModels
                         OnPropertyChanged("States");
                         // Increment the iteration number so we load a new frame next time
                         iterNum++;
+                        OnPropertyChanged("IterationNumber");
                     }
                     else
                     {
