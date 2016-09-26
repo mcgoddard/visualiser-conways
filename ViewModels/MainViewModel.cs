@@ -140,6 +140,8 @@ namespace visualiser_conways.ViewModels
         private void Play(object parameter)
         {
             playing = true;
+            OnPropertyChanged("CanChangeDelay");
+            OnPropertyChanged("CanChangeIteration");
             playTimer = new Timer(delayTime);
             playTimer.Elapsed += PlayTimer_Elapsed;
             playTimer.AutoReset = true;
@@ -192,6 +194,10 @@ namespace visualiser_conways.ViewModels
         private void Stop(object parameter)
         {
             playing = false;
+            playTimer.Stop();
+            playTimer.Elapsed -= PlayTimer_Elapsed;
+            OnPropertyChanged("CanChangeDelay");
+            OnPropertyChanged("CanChangeIteration");
         }
 
         private bool CanSelectFolder(object parameter)

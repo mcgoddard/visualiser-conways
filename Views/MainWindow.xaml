@@ -31,8 +31,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ItemsControl ItemTemplate="{DynamicResource DataTemplate_Level1}" ItemsSource="{Binding States}"
-                      Grid.Column="0" Grid.Row="0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                      Grid.Column="0" Grid.Row="0">
+            <ItemsControl ItemTemplate="{DynamicResource DataTemplate_Level1}" ItemsSource="{Binding States}" />
+        </ScrollViewer>
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
             <Button Content="Play" Command="{Binding PlayCommand}" Margin="5"/>
             <Button Content="Stop" Command="{Binding StopCommand}" Margin="5"/>
