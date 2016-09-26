@@ -73,7 +73,7 @@ namespace visualiser_conways.ViewModels
             }
         }
 
-        public List<List<string>> States
+        public List<List<bool>> States
         {
             get
             {
@@ -81,8 +81,8 @@ namespace visualiser_conways.ViewModels
                 {
                     return null;
                 }
-                var st = states.Select(r => r.Select(c => c.ToString()).ToList()).ToList();
-                return st;
+                var bl = states.Select(r => r.Select(c => c).ToList()).ToList();
+                return bl;
             }
         }
         #endregion
