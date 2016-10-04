@@ -175,6 +175,10 @@ namespace visualiser_conways.ViewModels
                     else
                     {
                         playing = false;
+                        playTimer.Stop();
+                        playTimer.Elapsed -= PlayTimer_Elapsed;
+                        OnPropertyChanged("CanChangeDelay");
+                        OnPropertyChanged("CanChangeIteration");
                         MessageBox.Show("End of simulation", String.Format("The simulation ends at interation {0}", iterNum), MessageBoxButtons.OK);
                     }
                     rendering = false;
